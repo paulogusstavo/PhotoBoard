@@ -1,14 +1,62 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+    <ion-title>Disciplinas</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addDisciplina()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content style="background-color: #f7f5f4;" padding>
+
+  <ion-list sortable draggable=".card">
+    <ion-item-sliding *ngFor="let disciplina of disciplinas">
+
+      <button ion-item (click)="itemSelecionado(disciplina.id, disciplina.nome)">
+        <h2 class="card">{{ disciplina.nome }}</h2>
+        <hr style="border-top: 2px solid #E9E9E9;"/>
+        <h3 class="card">{{ disciplina.professor}}</h3>
+      </button>
+
+      <ion-item-options style="height: 83%;" side="left" (ionSwipe)="alertaRemover(disciplina)">
+        <button class="buttonLeft" ion-button expandable color="danger" (click)="alertaRemover(disciplina)">
+          <ion-icon name="trash"></ion-icon>
+          Excluir
+        </button>
+        <button ion-button color="editColor" (click)="editDisciplina(disciplina.id)">
+          <ion-icon name="md-create"></ion-icon>
+          Editar
+        </button>
+      </ion-item-options>
+
+      <ion-item-options style="height: 83%;" side="righ" (ionSwipe)="abrirCamera(disciplina.id)">
+        <button class="buttonRight" ion-button expandable color="primary" (click)="abrirCamera(disciplina.id)">
+          <ion-icon name="md-camera"></ion-icon>
+          Nova Foto
+        </button>
+      </ion-item-options>
+
+    </ion-item-sliding>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col col-4 *ngFor="let photo of photos">
+        <ion-card>
+          <img [src]="photo" />
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
 </ion-content>
+
+<ion-footer>
+    <button class="novaFoto" ion-button full icon-end (click)="novaFoto()">
+      NOVA FOTO
+      <ion-icon name="md-camera"></ion-icon>
+    </button>
+</ion-footer>

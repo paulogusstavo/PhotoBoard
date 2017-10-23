@@ -14,3 +14,37 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.toolbar-title-ios { 
+    color: white;
+}
+.item-ios { 
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0px 5px 4px 0px rgba(0,0,0,0.1);
+}
+
+.list-ios ion-item-sliding {
+    background-color: #f7f5f4;
+}
+
+ .toolbar-background-ios { background-color: #30B286; }
+ .bar-button-default-ios { color: white; }
+ .ion-label { color: #30B286; }
+
+ .input-cover {
+    display: none;
+}
+
+.list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+    border-bottom: none;
+}
+
+.list-ios .item-block .item-inner {
+    border-bottom: none;
+}
+
+.item-ios.item-block .item-inner {
+    border-bottom: none;
+}

@@ -1,3 +1,23 @@
 page-home {
+    .card {
+        text-align: center;
+    }
+    .novaFoto {
+        background: #30B286;
+        height: 58px;
+        margin-bottom: 0px;
+    }
+    .buttonLeft {
+        border-top-left-radius: 5px !important;
+        border-bottom-left-radius: 5px !important;
+    }
+    .buttonRight {
+        border-top-right-radius: 5px !important;
+        border-bottom-right-radius: 5px !important;
+    }
+
+    .list-ios ion-item-options {
+        border-bottom: none;
+    }
 
 }
