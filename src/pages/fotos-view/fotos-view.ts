@@ -1,3 +1,5 @@
+import { CadastroTarefaPage } from '../cadastro-tarefa/cadastro-tarefa';
+import { Tarefa } from './../../providers/tarefa/tarefa';
 import { FotosProvider } from './../../providers/fotos/fotos';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
@@ -11,6 +13,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class FotosViewPage {
 
   public photos: any = [];
+  public tarefas: any = [];
   private nomeDisciplina: string = String();
 
   constructor(
@@ -19,6 +22,7 @@ export class FotosViewPage {
     public camera: Camera,
     private fotosProvider: FotosProvider) {
 
+
     //Carrega nome da disciplina.
     this.nomeDisciplina = this.navParams.data.nome;
 
@@ -26,14 +30,15 @@ export class FotosViewPage {
     fotosProvider.getPhotos(navParams.data.id)
       .then((result: any) => {
         this.photos = result;
-        this.photos.reverse();
       });
 
-    }
+  }
 
+  addTarefa() { this.navCtrl.push(CadastroTarefaPage); }
 
   //-----NOME_DISCIPLINA-----------------------------------------------
   public getDisciplina() { return this.nomeDisciplina; }
+
 
 
 

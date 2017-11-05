@@ -48,3 +48,14 @@
 .item-ios.item-block .item-inner {
     border-bottom: none;
 }
+
+.segment-ios .segment-button {
+    border-color: #30B286;
+    color: #30B286;
+    background-color: #FFF;
+}
+
+.segment-ios .segment-button.segment-activated {
+    color: #FFF;
+    background-color: #30B286;
+}

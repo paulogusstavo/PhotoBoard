@@ -13,40 +13,41 @@ export class CadastroDisciplinaPage {
 
   constructor(
     public navCtrl: NavController, public navParams: NavParams,
-    private toast: ToastController, private disciplinaProvider: DisciplinaProvider) {
+    private toast: ToastController, private disciplinaProvider: DisciplinaProvider,) {
 
-      this.model = new Disciplina();
+    this.model = new Disciplina();
 
-      //Carregar disciplina se editar.
-      if (this.navParams.data.id) {
-        this.disciplinaProvider.get(this.navParams.data.id)
-        .then ((result: any) => {
+    //Carregar disciplina se editar.
+    if (this.navParams.data.id) {
+      this.disciplinaProvider.get(this.navParams.data.id)
+        .then((result: any) => {
           this.model = result;
         })
-      }
+    }
 
   }
 
   ionViewDidLoad() { }
 
-  save () {
+  save() {
     this.saveDisciplina()
-    .then(() => {
-      this.toast.create({message: 'Disciplina Salva.', duration: 3000, position: 'bottom'}).present();
-      this.navCtrl.pop();
-    })
-    .catch(() => {
-      this.toast.create({message: 'Erro ao salvar disciplina.', duration: 3000, position: 'bottom'}).present();
-    })
+      .then(() => {
+        this.toast.create({ message: 'Disciplina Salva.', duration: 3000, position: 'bottom' }).present();
+        this.navCtrl.pop();
+      })
+      .catch(() => {
+        this.toast.create({ message: 'Erro ao salvar disciplina.', duration: 3000, position: 'bottom' }).present();
+      })
 
   }
 
-  private saveDisciplina () {
+  private saveDisciplina() {
     if (this.model.id) {
       return this.disciplinaProvider.update(this.model);
     } else {
       return this.disciplinaProvider.insert(this.model);
     }
   }
+
 
 }

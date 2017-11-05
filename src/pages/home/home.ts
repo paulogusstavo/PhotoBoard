@@ -6,7 +6,12 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FotosProvider } from '../../providers/fotos/fotos';
 import { Platform } from 'ionic-angular';
 import { normalizeURL } from 'ionic-angular';
-import { FotosViewPage } from '../fotos-view/fotos-view'
+import { FotosViewPage } from '../fotos-view/fotos-view';
+import { Base64 } from '@ionic-native/base64';
+import { File } from '@ionic-native/file';
+declare var window: any;
+
+
 
 @Component({
   selector: 'page-home',
@@ -14,9 +19,10 @@ import { FotosViewPage } from '../fotos-view/fotos-view'
 })
 export class HomePage {
 
-  // public disciplinas: any[] = [{"nome":"Programacao IV", "professor":"Jose Lino"}, {"nome":"Programacao IV", "professor":"Jose Lino"}];
-  public disciplinas: any[] = [];
+  public disciplinas: any[] = [{"nome":"Programacao IV", "professor": "Jose Lino"}];
+  // public disciplinas: any[] = [];
   public photos: any = [];
+  public imageUrl: string;
 
   constructor(public navCtrl: NavController,
     private toast: ToastController,
@@ -24,7 +30,9 @@ export class HomePage {
     private alertCtrl: AlertController,
     private camera: Camera,
     private fotoProvider: FotosProvider,
-    private platform: Platform) { }
+    private platform: Platform,
+    private base64: Base64,
+    private file: File) { }
 
   ionViewDidEnter() { this.getAllDisciplinas(); }
 
@@ -33,15 +41,14 @@ export class HomePage {
   editDisciplina(id: number) { this.navCtrl.push(CadastroDisciplinaPage, { id: id }); }
 
   itemSelecionado(id: number, nome: string) {
-    this.toast.create({ message: 'ENTROU ITEM- ' + id, duration: 3000, position: 'botton' }).present();
     this.navCtrl.push(FotosViewPage, { id: id, nome: nome });
   }
 
   getAllDisciplinas() {
-    this.disciplinaProvider.getAll()
-      .then((result: any[]) => {
-        this.disciplinas = result;
-      })
+    // this.disciplinaProvider.getAll()
+    //   .then((result: any[]) => {
+    //     this.disciplinas = result;
+    //   })
   }
 
   //-----REMOVER_DISCIPLINA---------------------------------------------------------------------
@@ -107,37 +114,35 @@ export class HomePage {
   abrirCamera(idDisciplina: number) { //Abrir e Salvar foto no banco.
 
     const options: CameraOptions = {
-      quality: 50, //Verificação da plataforma. (Necessário, pois ios com problemas.)
+      quality: 50,
       // destinationType: this.platform.is('ios') ? this.camera.DestinationType.FILE_URI : this.camera.DestinationType.DATA_URL,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
-      saveToPhotoAlbum: false
+      saveToPhotoAlbum: true
     }
 
     this.camera.getPicture(options)
-      .then((imageData) => {
-        let base64Image = null;
-        // if (this.platform.is('ios'))
-        //   base64Image = normalizeURL(imageData);
-        // else
-        base64Image = "data:image/jpeg;base64," + imageData;
+      .then((fileURI) => {
 
-        //Salvar fotos no banco interno.
-        this.addPhoto(base64Image);
-        this.fotoProvider.insert(base64Image, idDisciplina);
+        window.resolveLocalFileSystemURL("file://" + fileURI, FE => {
+          FE.file(file => {
+            const FR = new FileReader()
+            FR.onloadend = ((res: any) => {
+              let AF = res.target.result
+              let blob=new Blob([new Uint8Array(AF)], {type: 'image/png'})
+              this.fotoProvider.insert(blob, 1);
+            });
+          FR.readAsArrayBuffer(file);
+          })
+        });
 
       }, (error) => {
         console.error(error)
         this.ionViewDidEnter();
       });
   }
-
-  addPhoto(photo) {
-    this.photos.push(photo);
-    this.photos.reverse();
-}
 
 
 }

@@ -4,22 +4,33 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
+
+//Pages
+import { FotosViewPage } from '../pages/fotos-view/fotos-view';
+import { CadastroDisciplinaPage } from '../pages/cadastro-disciplina/cadastro-disciplina';
+import { CadastroTarefaPage } from '../pages/cadastro-tarefa/cadastro-tarefa';
 import { HomePage } from '../pages/home/home';
 
-import { SQLite } from '@ionic-native/sqlite';
 //Providers
 import { DatabaseProvider } from '../providers/database/database';
 import { DisciplinaProvider } from '../providers/disciplina/disciplina';
 import { FotosProvider } from '../providers/fotos/fotos';
-import { CadastroDisciplinaPage } from '../pages/cadastro-disciplina/cadastro-disciplina';
+import { CategoriaProvider } from '../providers/categoria/categoria';
+import { TarefaProvider } from '../providers/tarefa/tarefa';
+
+//Plugin
+import { SQLite } from '@ionic-native/sqlite';
 import { Camera } from '@ionic-native/camera';
-import { FotosViewPage } from '../pages/fotos-view/fotos-view';
+import { Base64 } from '@ionic-native/base64';
+import { File } from '@ionic-native/file';
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     CadastroDisciplinaPage,
+    CadastroTarefaPage,
     FotosViewPage
   ],
   imports: [
@@ -34,7 +45,8 @@ import { FotosViewPage } from '../pages/fotos-view/fotos-view';
     MyApp,
     HomePage,
     CadastroDisciplinaPage,
-    FotosViewPage
+    FotosViewPage,
+    CadastroTarefaPage
   ],
   providers: [
     StatusBar,
@@ -45,7 +57,12 @@ import { FotosViewPage } from '../pages/fotos-view/fotos-view';
     DatabaseProvider,
     DisciplinaProvider,
     FotosProvider,
-    Camera
+    Camera,
+    Base64,
+    File,
+    TarefaProvider,
+    CategoriaProvider,
+    CadastroTarefaPage
   ]
 })
 export class AppModule {}

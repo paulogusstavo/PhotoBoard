@@ -3,28 +3,29 @@ import { DatabaseProvider } from '../database/database';
 import { SQLiteObject } from '@ionic-native/sqlite';
 import { ToastController } from 'ionic-angular';
 
-
 @Injectable()
 export class FotosProvider {
 
-  constructor(private dbProvider: DatabaseProvider, private toast: ToastController,) { }
-  
+  constructor(private dbProvider: DatabaseProvider, private toast: ToastController) { }
+
   //-----INSERIR-------------------------------------------------------
-  public insert(foto, idDisciplina: number) {
+  public insert(foto: any, idDisciplina: number) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
         let sql = 'INSERT INTO fotos (img, disciplina_id) VALUES (?, ?)';
         let data = [foto, idDisciplina];
-        return db.executeSql(sql, data) 
-        .catch((e) => {
+        return db.executeSql(sql, data)
+          .catch((e) => {
             this.toast.create(
               { message: 'ERRO 01', duration: 3000, position: 'botton' }).present();
-            console.error(e)});
+            console.error(e)
+          });
       })
       .catch((e) => {
         this.toast.create(
           { message: 'ERRO 02', duration: 3000, position: 'botton' }).present();
-        console.error(e)});
+        console.error(e)
+      });
   }
 
   //-----GET(ALL)------------------------------------------------------
@@ -51,6 +52,7 @@ export class FotosProvider {
       })
       .catch((e) => console.error(e));
   }
+
 
 
 }

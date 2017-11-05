@@ -1,6 +1,6 @@
 {
   "name": "photoBoard",
-  "app_id": "",
+  "app_id": "654abba9",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
