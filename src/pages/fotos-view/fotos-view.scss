@@ -1,3 +1,33 @@
 page-fotos-view {
 
+    .buttonLeft {
+        border-top-left-radius: 5px !important;
+        border-bottom-left-radius: 5px !important;
+    }
+    
+    .list-ios ion-item-options {
+        border-bottom: none;
+    }
+
+    .categoria {
+        float:left;
+        font-size: 13px;
+    }
+
+    .descricao {
+        float: left;
+        font-size: 15px;
+    }
+
+    .entrega {
+        white-space: pre-line;
+        float: right;
+        font-size: 13px;
+        color: #41B083;
+    }
+
+    .item-ios[detail-push] .item-inner, button.item-ios:not([detail-none]) .item-inner, a.item-ios:not([detail-none]) .item-inner {
+        background-image: none;
+    }
+
 }

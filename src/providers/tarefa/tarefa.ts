@@ -23,8 +23,8 @@ export class TarefaProvider {
   public update(tarefa: Tarefa) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'UPDATE tarefas SET descricao = ?, entrega = ?, categoria_id = ?, disciplina_id = ? WHERE id = ?';
-        let data = [tarefa.descricao, tarefa.entrega, tarefa.categoria_id, tarefa.disciplina_id, tarefa.id];
+        let sql = 'UPDATE tarefas SET descricao = ?, entrega = ?, categoria_id = ? WHERE id = ?';
+        let data = [tarefa.descricao, tarefa.entrega, tarefa.categoria_id, tarefa.id];
         return db.executeSql(sql, data)
           .catch((e) => console.error(e));
       })
@@ -101,7 +101,7 @@ export class TarefaProvider {
 export class Tarefa {
   id: number;
   descricao: string;
-  entrega: Date;
+  entrega: number;
   //Foreing Keys
   categoria_id: number;
   disciplina_id: number;

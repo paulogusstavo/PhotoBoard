@@ -11,7 +11,7 @@
 
 <ion-content style="background-color: #f7f5f4;" padding>
 
-    <ion-segment fixed [(ngModel)]="segment">
+    <ion-segment [(ngModel)]="segment">
         <ion-segment-button value="fotos">
           Fotos
         </ion-segment-button>
@@ -19,49 +19,46 @@
           Tarefas
         </ion-segment-button>
       </ion-segment>
+  <div [ngSwitch]="segment">
 
-  <!-- EXIBIR FOTOS -->
+    <!-- EXIBIR FOTOS -->
+    <ion-list *ngSwitchCase="'fotos'">
+      <ion-grid>
+        <ion-row>
+          <ion-col col-4 *ngFor="let photo of photos">
+            <ion-card>
+              <img [src]="photo" *ngIf="photo" />
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-list>
 
-  <!-- <ion-grid>
-    <ion-row>
-      <ion-col col-4 *ngFor="let photo of photos">
-        <ion-card>
-          <img [src]="photo" *ngIf="photo" />
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
+    <!-- EXIBIR TAREFAS -->
+    <ion-list *ngSwitchCase="'tarefas'">
+      <br/>
+      <ion-item-sliding *ngFor="let tarefa of tarefas">
 
-  <!-- EXIBIR TAREFAS -->
-
-  <ion-list draggable=".card">
-    <ion-item-sliding *ngFor="let tarefa of tarefas">
-
-      <button ion-item>
-        <h2 class="card">{{ tarefa.descricao }}</h2>
-        <hr style="border-top: 2px solid #E9E9E9;" />
-        <h3 class="card">{{ tarefa.entrega }}</h3>
-      </button>
-      <!-- 
-      <ion-item-options style="height: 83%;" side="left" (ionSwipe)="alertaRemover(disciplina)">
-        <button class="buttonLeft" ion-button expandable color="danger" (click)="alertaRemover(disciplina)">
-          <ion-icon name="trash"></ion-icon>
-          Excluir
+        <button ion-item style="height: 75.95px;">
+          <span class="categoria">{{ getNomeCategoria(tarefa.categoria_id) }}</span>
+          <span class="entrega">{{ tarefa.entrega }}</span>
+          <br>
+          <span class="descricao">{{ tarefa.descricao }}</span>
         </button>
-        <button ion-button color="editColor" (click)="editDisciplina(disciplina.id)">
-          <ion-icon name="md-create"></ion-icon>
-          Editar
-        </button>
-      </ion-item-options>
 
-      <ion-item-options style="height: 83%;" side="righ" (ionSwipe)="abrirCamera(disciplina.id)">
-        <button class="buttonRight" ion-button expandable color="primary" (click)="abrirCamera(disciplina.id)">
-          <ion-icon name="md-camera"></ion-icon>
-          Nova Foto
-        </button>
-      </ion-item-options> -->
+        <ion-item-options style="height: 83%;" side="left" (ionSwipe)="alertaRemover(tarefa)">
+          <button class="buttonLeft" ion-button expandable color="danger" (click)="alertaRemover(tarefa)">
+            <ion-icon name="trash"></ion-icon>
+            Excluir
+          </button>
+          <button ion-button color="editColor" (click)="editTarefa(tarefa.id)">
+            <ion-icon name="md-create"></ion-icon>
+            Editar
+          </button>
+        </ion-item-options>
 
-    </ion-item-sliding>
-  </ion-list>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
 
 </ion-content>

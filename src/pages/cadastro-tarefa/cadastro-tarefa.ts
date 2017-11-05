@@ -42,7 +42,7 @@ export class CadastroTarefaPage {
   }
 
   save() {
-    this.saveDisciplina()
+    this.saveTarefa()
       .then(() => {
         this.toast.create({ message: 'Tarefa Salva.', duration: 3000, position: 'bottom' }).present();
         this.navCtrl.pop();
@@ -53,7 +53,7 @@ export class CadastroTarefaPage {
 
   }
 
-  private saveDisciplina() {
+  private saveTarefa() {
     if (this.model.id) {
       this.model.disciplina_id = this.navParams.data.disciplina;
       return this.tarefaProvider.update(this.model);

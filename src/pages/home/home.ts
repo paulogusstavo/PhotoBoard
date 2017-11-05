@@ -11,15 +11,14 @@ import { Base64 } from '@ionic-native/base64';
 import { File } from '@ionic-native/file';
 declare var window: any;
 
-
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
 
-  // public disciplinas: any[] = [{ "nome": "Programacao IV", "professor": "Jose Lino" }, { "nome": "Programacao IV", "professor": "Jose Lino" }];
+  // public disciplinas: any[] = [{"id": "1", "nome": "Programação IV", "professor": "José Eduardo Nunes Lino" },
+  // {"id": "2", "nome": "Empreendedorismo", "professor": "Carlos Silla" }];
   public disciplinas: any[] = [];
   public photos: any = [];
   public imageUrl: string;
@@ -89,18 +88,18 @@ export class HomePage {
     {
       let alert = this.alertCtrl.create();
       alert.setTitle('Selecione uma disciplina');
-      for (let i = 0; i < this.disciplinas.length; i++ ) {
+      for (let i = 0; i < this.disciplinas.length; i++) {
         alert.addInput({
           type: 'radio',
           label: this.disciplinas[i].nome.toString(),
           value: i.toString(),
           handler: (data) => {
-            if ( alert['instance']['d']['inputs'][data.value]['checked'] === false ) {
-              for (let i = 0; i < alert['instance']['d']['inputs'].length; i++){
-              alert['instance']['d']['inputs'][i]['checked'] = false;
-                 }
+            if (alert['instance']['d']['inputs'][data.value]['checked'] === false) {
+              for (let i = 0; i < alert['instance']['d']['inputs'].length; i++) {
+                alert['instance']['d']['inputs'][i]['checked'] = false;
+              }
               alert['instance']['d']['inputs'][0]['checked'] = true;
-               };
+            };
           }
         })
       }
@@ -145,27 +144,18 @@ export class HomePage {
     const options: CameraOptions = {
       quality: 50,
       // destinationType: this.platform.is('ios') ? this.camera.DestinationType.FILE_URI : this.camera.DestinationType.DATA_URL,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true,
-      saveToPhotoAlbum: true
+      saveToPhotoAlbum: false
     }
 
     this.camera.getPicture(options)
-      .then((fileURI) => {
+      .then((imageData) => {
+        let base64Image = 'data:image/jpeg;base64,' + imageData;
 
-        window.resolveLocalFileSystemURL("file://" + fileURI, FE => {
-          FE.file(file => {
-            const FR = new FileReader()
-            FR.onloadend = ((res: any) => {
-              let AF = res.target.result
-              let blob = new Blob([new Uint8Array(AF)], { type: 'image/png' })
-              this.fotoProvider.insert(blob, 1);
-            });
-            FR.readAsArrayBuffer(file);
-          })
-        });
+        this.fotoProvider.insert(base64Image, idDisciplina);
 
       }, (error) => {
         console.error(error)
