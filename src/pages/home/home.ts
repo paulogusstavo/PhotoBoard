@@ -19,8 +19,8 @@ declare var window: any;
 })
 export class HomePage {
 
-  public disciplinas: any[] = [{"nome":"Programacao IV", "professor": "Jose Lino"}];
-  // public disciplinas: any[] = [];
+  // public disciplinas: any[] = [{ "nome": "Programacao IV", "professor": "Jose Lino" }, { "nome": "Programacao IV", "professor": "Jose Lino" }];
+  public disciplinas: any[] = [];
   public photos: any = [];
   public imageUrl: string;
 
@@ -45,13 +45,13 @@ export class HomePage {
   }
 
   getAllDisciplinas() {
-    // this.disciplinaProvider.getAll()
-    //   .then((result: any[]) => {
-    //     this.disciplinas = result;
-    //   })
+    this.disciplinaProvider.getAll()
+      .then((result: any[]) => {
+        this.disciplinas = result;
+      })
   }
 
-  //-----REMOVER_DISCIPLINA---------------------------------------------------------------------
+  //-----REMOVER_DISCIPLINA_ALERTA---------------------------------------------------------------------
   private removeDisciplina(disciplina: Disciplina) {
     this.disciplinaProvider.remove(disciplina.id)
       .then(() => {
@@ -87,7 +87,36 @@ export class HomePage {
       this.alertaNovaFoto();
     } else //Possui disciplinas cadastradas.
     {
-      this.abrirCamera(1);
+      let alert = this.alertCtrl.create();
+      alert.setTitle('Selecione uma disciplina');
+      for (let i = 0; i < this.disciplinas.length; i++ ) {
+        alert.addInput({
+          type: 'radio',
+          label: this.disciplinas[i].nome.toString(),
+          value: i.toString(),
+          handler: (data) => {
+            if ( alert['instance']['d']['inputs'][data.value]['checked'] === false ) {
+              for (let i = 0; i < alert['instance']['d']['inputs'].length; i++){
+              alert['instance']['d']['inputs'][i]['checked'] = false;
+                 }
+              alert['instance']['d']['inputs'][0]['checked'] = true;
+               };
+          }
+        })
+      }
+
+      alert.addButton('Cancelar');
+      alert.addButton({
+        text: 'OK',
+        handler: data => {
+          var disciplina_ID = +data;
+          data++;
+          this.abrirCamera(data);
+        }
+      });
+
+      alert.present();
+
     }
 
   }
@@ -131,10 +160,10 @@ export class HomePage {
             const FR = new FileReader()
             FR.onloadend = ((res: any) => {
               let AF = res.target.result
-              let blob=new Blob([new Uint8Array(AF)], {type: 'image/png'})
+              let blob = new Blob([new Uint8Array(AF)], { type: 'image/png' })
               this.fotoProvider.insert(blob, 1);
             });
-          FR.readAsArrayBuffer(file);
+            FR.readAsArrayBuffer(file);
           })
         });
 

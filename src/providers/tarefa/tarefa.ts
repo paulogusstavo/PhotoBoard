@@ -72,12 +72,13 @@ export class TarefaProvider {
   }
 
   //-----GET(ALL)----------------------------------------------------
-  public getAll() {
+  public getAll(id: number) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
-        let sql = 'SELECT * FROM tarefas';
+        let sql = 'SELECT * FROM tarefas WHERE disciplina_id = ?';
+        let dados = [id];
 
-        return db.executeSql(sql, null)
+        return db.executeSql(sql, dados)
           .then((data: any) => {
             if (data.rows.length > 0) {
               let tarefas: any[] = [];

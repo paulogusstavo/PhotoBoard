@@ -2,27 +2,27 @@
   <ion-navbar>
     <ion-title>{{ getDisciplina() }}</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="addTarefa()">
+      <button ion-button icon-only (click)="addTarefa()" *ngIf="segment === 'tarefas'">
         <ion-icon name="add"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
 
+<ion-content style="background-color: #f7f5f4;" padding>
 
-<ion-content padding>
+    <ion-segment fixed [(ngModel)]="segment">
+        <ion-segment-button value="fotos">
+          Fotos
+        </ion-segment-button>
+        <ion-segment-button value="tarefas">
+          Tarefas
+        </ion-segment-button>
+      </ion-segment>
 
-  <ion-segment>
-    <ion-segment-button value="fotos">
-      Fotos
-    </ion-segment-button>
-    <ion-segment-button value="tarefas">
-      Tarefas
-    </ion-segment-button>
-  </ion-segment>
+  <!-- EXIBIR FOTOS -->
 
-
-  <ion-grid>
+  <!-- <ion-grid>
     <ion-row>
       <ion-col col-4 *ngFor="let photo of photos">
         <ion-card>
@@ -30,6 +30,38 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  </ion-grid>
+  </ion-grid> -->
+
+  <!-- EXIBIR TAREFAS -->
+
+  <ion-list draggable=".card">
+    <ion-item-sliding *ngFor="let tarefa of tarefas">
+
+      <button ion-item>
+        <h2 class="card">{{ tarefa.descricao }}</h2>
+        <hr style="border-top: 2px solid #E9E9E9;" />
+        <h3 class="card">{{ tarefa.entrega }}</h3>
+      </button>
+      <!-- 
+      <ion-item-options style="height: 83%;" side="left" (ionSwipe)="alertaRemover(disciplina)">
+        <button class="buttonLeft" ion-button expandable color="danger" (click)="alertaRemover(disciplina)">
+          <ion-icon name="trash"></ion-icon>
+          Excluir
+        </button>
+        <button ion-button color="editColor" (click)="editDisciplina(disciplina.id)">
+          <ion-icon name="md-create"></ion-icon>
+          Editar
+        </button>
+      </ion-item-options>
+
+      <ion-item-options style="height: 83%;" side="righ" (ionSwipe)="abrirCamera(disciplina.id)">
+        <button class="buttonRight" ion-button expandable color="primary" (click)="abrirCamera(disciplina.id)">
+          <ion-icon name="md-camera"></ion-icon>
+          Nova Foto
+        </button>
+      </ion-item-options> -->
+
+    </ion-item-sliding>
+  </ion-list>
 
 </ion-content>

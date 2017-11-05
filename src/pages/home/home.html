@@ -11,12 +11,12 @@
 
 <ion-content style="background-color: #f7f5f4;" padding>
 
-  <ion-list sortable draggable=".card">
+  <ion-list draggable=".card">
     <ion-item-sliding *ngFor="let disciplina of disciplinas">
 
       <button ion-item (click)="itemSelecionado(disciplina.id, disciplina.nome)">
         <h2 class="card">{{ disciplina.nome }}</h2>
-        <hr style="border-top: 2px solid #E9E9E9;"/>
+        <hr style="border-top: 2px solid #E9E9E9;" />
         <h3 class="card">{{ disciplina.professor}}</h3>
       </button>
 
@@ -41,6 +41,7 @@
     </ion-item-sliding>
   </ion-list>
 
+
   <ion-grid>
     <ion-row>
       <ion-col col-4 *ngFor="let photo of photos">
@@ -57,8 +58,8 @@
 </ion-content>
 
 <ion-footer>
-    <button class="novaFoto" ion-button full icon-end (click)="novaFoto()">
-      NOVA FOTO
-      <ion-icon name="md-camera"></ion-icon>
-    </button>
+  <button class="novaFoto" ion-button full icon-end (click)="novaFoto()">
+    NOVA FOTO
+    <ion-icon name="md-camera"></ion-icon>
+  </button>
 </ion-footer>

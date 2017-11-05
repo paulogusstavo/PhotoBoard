@@ -55,8 +55,10 @@ export class CadastroTarefaPage {
 
   private saveDisciplina() {
     if (this.model.id) {
+      this.model.disciplina_id = this.navParams.data.disciplina;
       return this.tarefaProvider.update(this.model);
     } else {
+      this.model.disciplina_id = this.navParams.data.disciplina;
       return this.tarefaProvider.insert(this.model);
     }
   }
