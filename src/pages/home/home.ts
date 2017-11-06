@@ -7,8 +7,6 @@ import { FotosProvider } from '../../providers/fotos/fotos';
 import { Platform } from 'ionic-angular';
 import { normalizeURL } from 'ionic-angular';
 import { FotosViewPage } from '../fotos-view/fotos-view';
-import { Base64 } from '@ionic-native/base64';
-import { File } from '@ionic-native/file';
 declare var window: any;
 
 @Component({
@@ -29,9 +27,9 @@ export class HomePage {
     private alertCtrl: AlertController,
     private camera: Camera,
     private fotoProvider: FotosProvider,
-    private platform: Platform,
-    private base64: Base64,
-    private file: File) { }
+    private platform: Platform) {
+
+     }
 
   ionViewDidEnter() { this.getAllDisciplinas(); }
 
@@ -57,7 +55,7 @@ export class HomePage {
         var index = this.disciplinas.indexOf(disciplina);
         this.disciplinas.splice(index, 1);
         this.toast.create(
-          { message: 'Disciplina Removida.', duration: 3000, position: 'botton' }).present();
+          { message: 'DISCIPLINA REMOVIDA!', duration: 3000, position: 'botton' }).present();
       })
   }
 

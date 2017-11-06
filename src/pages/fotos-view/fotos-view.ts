@@ -59,14 +59,14 @@ export class FotosViewPage {
   editTarefa(id: number) { this.navCtrl.push(CadastroTarefaPage, { id: id }); }
 
 
-  //-----REMOVER_DISCIPLINA_ALERTA---------------------------------------------------------------------
+  //-----REMOVER_TAREFA_ALERTA---------------------------------------------------------------------
   private removeTarefa(tarefa: Tarefa) {
     this.tarefaProvider.remove(tarefa.id)
       .then(() => {
         var index = this.tarefas.indexOf(tarefa);
         this.tarefas.splice(index, 1);
         this.toast.create(
-          { message: 'Disciplina Removida.', duration: 3000, position: 'botton' }).present();
+          { message: 'TAREFA REMOVIDA!', duration: 3000, position: 'botton' }).present();
       })
   }
 
@@ -98,5 +98,11 @@ export class FotosViewPage {
     }
   }
 
+
+  getDateFormated (mydate) {
+    var splitted = mydate.split("-", 3);
+    var final: string = splitted[2] + "/" + splitted[1] + "/" + splitted[0];
+    return final;
+  }
 
 }

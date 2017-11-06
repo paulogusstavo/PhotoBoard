@@ -32,7 +32,7 @@ export class CadastroDisciplinaPage {
   save() {
     this.saveDisciplina()
       .then(() => {
-        this.toast.create({ message: 'Disciplina Salva.', duration: 3000, position: 'bottom' }).present();
+        this.toast.create({ message: 'DISCIPLINA SALVA!', duration: 3000, position: 'bottom' }).present();
         this.navCtrl.pop();
       })
       .catch(() => {

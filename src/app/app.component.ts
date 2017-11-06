@@ -15,7 +15,7 @@ export class MyApp {
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, dbProvider: DatabaseProvider) {
     platform.ready().then(() => {
 
-      statusBar.styleDefault();
+      statusBar.styleLightContent();
 
       //Criar o banco de dados (Antes de iniciar a pagina inicial)
       dbProvider.createDataBase()

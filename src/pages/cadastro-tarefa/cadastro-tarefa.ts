@@ -44,7 +44,7 @@ export class CadastroTarefaPage {
   save() {
     this.saveTarefa()
       .then(() => {
-        this.toast.create({ message: 'Tarefa Salva.', duration: 3000, position: 'bottom' }).present();
+        this.toast.create({ message: 'TAREFA SALVA!', duration: 3000, position: 'bottom' }).present();
         this.navCtrl.pop();
       })
       .catch(() => {

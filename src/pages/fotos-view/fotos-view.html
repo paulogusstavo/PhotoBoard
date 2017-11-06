@@ -41,7 +41,7 @@
 
         <button ion-item style="height: 75.95px;">
           <span class="categoria">{{ getNomeCategoria(tarefa.categoria_id) }}</span>
-          <span class="entrega">{{ tarefa.entrega }}</span>
+          <span class="entrega">{{ getDateFormated(tarefa.entrega) }}</span>
           <br>
           <span class="descricao">{{ tarefa.descricao }}</span>
         </button>
